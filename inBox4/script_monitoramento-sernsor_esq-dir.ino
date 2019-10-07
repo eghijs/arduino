@@ -3,9 +3,8 @@ int IRdir;
 
 void setup() {
   Serial.begin(9600);
-  Serial.println("--- Start Serial Monitor SEND_RCVE ---");
-  Serial.println(" Type in Box above, . ");
-  Serial.println("(Decimal)(Hex)(Character)");  
+  Serial.println("---[ Monitoramento dos Sensores ]---");
+  Serial.println("( SensorIR A0 )  ( SensorIR A1 )");  
   Serial.println(); 
 }
 
