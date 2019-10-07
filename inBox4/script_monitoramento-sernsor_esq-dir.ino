@@ -2,7 +2,11 @@ int IResq;
 int IRdir;
 
 void setup() {
-	Serial.begin(9600);
+  Serial.begin(9600);
+  Serial.println("--- Start Serial Monitor SEND_RCVE ---");
+  Serial.println(" Type in Box above, . ");
+  Serial.println("(Decimal)(Hex)(Character)");  
+  Serial.println(); 
 }
 
 void loop() {
