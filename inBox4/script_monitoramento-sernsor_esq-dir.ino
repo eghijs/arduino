@@ -1,8 +1,8 @@
-/*****************************************\
-| Código Calibragem de Sensor IF TCRT5000 |
-| Autor: Erik P. Ghijs - eghijs@gmail.com |
-|    Sinta-se livre para usar ou editar   |
-\*****************************************/
+/*******************************************\
+| Código Calibrando os sensores IF TCRT5000 |
+|  Autor: Erik P. Ghijs - eghijs@gmail.com  |
+|     Sinta-se livre para usar ou editar    |
+\*******************************************/
 int Sesq = A0; // Porta do sensor esquerdo
 int Sdir = A1; // Porta do sensor direito
 
