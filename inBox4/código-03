@@ -1,0 +1,50 @@
+//A1-A = D3
+//A1-B = D5
+
+//B1-B = D6
+//B1-A = D9
+
+int IResq; //infravermelho
+int IRdir;
+
+void setup() {
+  /*MOTOR A = ESQUERDA
+    MOTOR B = DIREITA*/
+Serial.begin(9600);
+pinMode(3, OUTPUT);
+pinMode(5, OUTPUT);
+pinMode(6, OUTPUT);
+pinMode(9, OUTPUT);
+}
+
+/*IResq: Branco ~31 Preto ~49
+  IRdir: Branco ~32 Preto ~71
+FRENTE Se IResq == 31 E IRdir == 32
+ESQUERDA Se IResq == 49 E IRdir == 32
+DIREITA Se IResq == 31 E IRdir == 71
+*/
+
+void loop() {
+  IResq = analogRead(A0); //De 0 a 1023
+  IRdir = analogRead(A1);
+  if(IResq < 40 && IRdir < 40) {
+    //M. Esq para FRENTE e M. Dir para FRENTE = Robo andar para frente
+    digitalWrite(3,LOW);
+    digitalWrite(5,HIGH);
+    digitalWrite(6,LOW);
+    digitalWrite(9,HIGH);
+  } 
+   else if (IResq > 40 && IRdir < 40) {//Vira para esquerda
+    digitalWrite(3,HIGH);
+    digitalWrite(5,LOW);
+    digitalWrite(6,LOW);
+    digitalWrite(9,HIGH);
+   }
+  else if (IResq < 40 && IRdir > 40) {//Vira para direita
+    digitalWrite(3,LOW);
+    digitalWrite(5,HIGH);
+    digitalWrite(6,HIGH);
+    digitalWrite(9,LOW);
+  }
+  delay(50);
+}
