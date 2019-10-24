@@ -1,0 +1,102 @@
+// Motor 1 (Esquerda) - pinos digitais arduino
+int m1A_pin = 3;
+int m1B_pin = 5;
+
+// Motor 2 (Direita) - pinos digitais arduino
+int m2A_pin = 6;
+int m2B_pin = 9;
+
+// Potencias do motor:
+// Potencia do motor principal quando anda para os lado
+// Este parametro define quao rapido o robo realiza as curvas
+//int potL = 50;
+
+// Potencia do motor secundario quando anda para os lados
+// Este parametro define quao abrupto a robo realiza as curvas
+//int potS = 5;
+
+// Potencia quando o robo anda para frente
+//int potF = 50;
+
+// Valor de referencia da LINHA a ser seguida (adquirido pelos sensores)
+int linha = 200;
+
+void setup() {
+  Serial.begin(9600);
+  // Inicializa os pinos dos motores como saida
+  pinMode(m1A_pin, OUTPUT);
+  pinMode(m1B_pin, OUTPUT);
+  pinMode(m2A_pin, OUTPUT);
+  pinMode(m2B_pin, OUTPUT);
+
+  
+}
+
+void loop() {
+  // Adquire os valores do sensor esquerdo e direito (portas A0 e A1)
+  int s1 = analogRead(A0);
+  int s2 = analogRead(A1);
+  
+  Serial.print(s1);
+  Serial.print('\t');
+  Serial.println(s2);
+
+  if(s1 > 800 && s2 > 800){
+  control('s');              
+ }
+ else if(s1 < linha  &&  s2 < linha){
+    control('w');
+  }
+ else if(s1 > linha && s2 < linha){
+   control('a');
+ }
+ else if(s2 > linha && s1 < linha){
+   control('d');
+ }
+ else if(s1 > linha && s2 > linha){
+   control('w');
+ }
+}
+
+//Funcao que controla os motores
+void control(char dir){
+    switch(dir){
+       //Anda para frente   
+       case 'w':
+           digitalWrite(m1A_pin, LOW);
+           digitalWrite(m1B_pin, HIGH);
+           digitalWrite(m2A_pin, LOW);
+           digitalWrite(m2B_pin, HIGH);
+           break;
+              
+       //Anda para tras   
+       case 'z':
+           digitalWrite(m1A_pin, HIGH);
+           digitalWrite(m1B_pin, LOW);
+           digitalWrite(m2A_pin, HIGH);
+           digitalWrite(m2B_pin, LOW);
+           break;
+              
+       //Anda para direita   
+       case 'd':
+           digitalWrite(m1A_pin, HIGH);
+           digitalWrite(m1B_pin, LOW);
+           digitalWrite(m2A_pin, LOW);
+           digitalWrite(m2B_pin, HIGH);
+           break;
+              
+       //Anda para esquerda
+       case 'a':
+           digitalWrite(m1A_pin, LOW);
+           digitalWrite(m1B_pin, HIGH);
+           digitalWrite(m2A_pin, HIGH);
+           digitalWrite(m2B_pin, LOW);
+           break;
+       default:
+           digitalWrite(m1A_pin, LOW);
+           digitalWrite(m1B_pin, LOW);
+           digitalWrite(m2A_pin, LOW);
+           digitalWrite(m2B_pin, LOW);
+           delay(3000);  
+      }       
+}
