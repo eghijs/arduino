@@ -1,0 +1,69 @@
+/* MOTOR A = ESQUERDA
+	A-1A = D3
+	A-1B = D5
+   
+   MOTOR B = DIREITA
+	B-1A = D6
+	B-1B = D9 
+
+IResq: Branco ~31	Preto ~49
+IRdir: Branco ~32	Preto ~71
+
+FRENTE		Se IResq == 31 E IRdir == 32
+ESQUERDA	Se IResq == 49 E IRdir == 32
+DIREITA		Se IResq == 31 E IRdir == 71	
+*/
+
+int IResq;
+int IRdir;
+
+void setup() {
+	Serial.begin(9600);
+	pinMode(3, OUTPUT); // PonteH A-1A
+	pinMode(5, OUTPUT); // PonteH A-1B
+	pinMode(6, OUTPUT); // PonteH B-1A
+	pinMode(9, OUTPUT); // PonteH B-1B
+}
+
+void loop() {
+IResq = analogRead(A0);
+IRdir = analogRead(A1);
+
+Serial.println(IResq);
+Serial.println('\t');
+Serial.println(IRdir);
+
+if(IResq > 200 && IRdir > 200){
+/*Motor.Esq PARADO*/
+digitalWrite(3,LOW);
+digitalWrite(5,LOW);
+/*Motor.Dir PARADO*/
+digitalWrite(6,LOW);
+digitalWrite(9,LOW);
+}
+else if (IResq < 40 && IRdir < 40){
+/*Motor.Esq para FRENTE*/
+digitalWrite(3,LOW);
+digitalWrite(5,HIGH);
+/*Motor.Dir para FRENTE*/
+digitalWrite(6,LOW);
+digitalWrite(9,HIGH);
+}
+else if(IResq > 40 && IRdir < 40){
+/*Motor.Esq para TRAS*/
+digitalWrite(3,HIGH);
+digitalWrite(5,LOW);
+/*Motor.Dir para FRENTE*/
+digitalWrite(6,LOW);
+digitalWrite(9,HIGH);
+}
+else if(IResq < 40 && IRdir > 40){
+/*Motor.Esq para FRENTE*/
+digitalWrite(3,LOW);
+digitalWrite(5,HIGH);
+/*Motor.Dir para TRAS*/
+digitalWrite(6,HIGH);
+digitalWrite(9,LOW);
+}
+delay(50);
+}
